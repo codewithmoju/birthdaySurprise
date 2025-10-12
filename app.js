@@ -4,6 +4,16 @@ import { createBalloons, createCakeAnimation, createWishesMessage } from './cele
 const TARGET_TIMESTAMP = '2025-10-14T00:00:00+05:00';
 const TARGET_DATE = new Date(TARGET_TIMESTAMP);
 
+console.log('=== Countdown Debug Info ===');
+console.log('Target Timestamp:', TARGET_TIMESTAMP);
+console.log('Target Date:', TARGET_DATE);
+console.log('Target Date (ISO):', TARGET_DATE.toISOString());
+console.log('Current Date:', new Date());
+console.log('Current Date (ISO):', new Date().toISOString());
+console.log('Difference (ms):', TARGET_DATE - new Date());
+console.log('Is Target Valid?:', !isNaN(TARGET_DATE.getTime()));
+console.log('========================');
+
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 const supabase = createClient(supabaseUrl, supabaseAnonKey);
@@ -54,7 +64,10 @@ function updateCountdown() {
   const now = new Date();
   const diff = TARGET_DATE - now;
 
+  console.log('Update Countdown - Diff:', diff, 'ms');
+
   if (diff <= 0) {
+    console.log('Countdown finished! Showing button.');
     stopCountdown();
     elements.days.textContent = '00';
     elements.hours.textContent = '00';
@@ -68,6 +81,8 @@ function updateCountdown() {
   const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
   const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
   const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+  console.log('Countdown:', { days, hours, minutes, seconds });
 
   elements.days.textContent = padZero(days);
   elements.hours.textContent = padZero(hours);
