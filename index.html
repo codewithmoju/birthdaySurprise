@@ -4,12 +4,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="A surprise birthday celebration countdown">
+  <meta name="theme-color" content="#b76e79">
   <title>Happy Birthday Surprise! 🎉</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com">
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
+  <link rel="preload" as="fetch" href="/assets/redBallon.json" crossorigin>
+  <link rel="modulepreload" href="/app.js">
   <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
@@ -24,6 +29,8 @@
   <div id="app">
     <!-- Countdown State -->
     <div id="countdown-container" class="container" aria-live="polite">
+      <div id="lottie-balloons-bg" class="lottie-background-balloons" aria-hidden="true"></div>
+
       <div class="hero-section">
         <div class="milestone-badge">20</div>
         <h1 class="hero-title">
@@ -87,6 +94,8 @@
       <canvas id="confetti-canvas" class="confetti-canvas" aria-hidden="true"></canvas>
 
       <div id="lottie-container" class="lottie-container" aria-hidden="true"></div>
+      <div id="lottie-balloons-container" class="lottie-balloons-main" aria-hidden="true"></div>
+      <div id="lottie-balloons-floating" class="lottie-balloons-floating" aria-hidden="true"></div>
 
       <div class="celebration-content">
         <div class="celebration-milestone-badge">20</div>

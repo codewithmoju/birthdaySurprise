@@ -56,10 +56,11 @@ function updateCountdown() {
 
   if (diff <= 0) {
     stopCountdown();
-
-    if (!celebrationShown) {
-      showCelebration();
-    }
+    elements.days.textContent = '00';
+    elements.hours.textContent = '00';
+    elements.minutes.textContent = '00';
+    elements.seconds.textContent = '00';
+    elements.manualCelebrationBtn.classList.remove('hidden');
     return;
   }
 
@@ -101,7 +102,8 @@ async function loadExternalLibraries() {
   try {
     await Promise.all([
       loadScript('https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js'),
-      loadScript('https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.10.1/lottie.min.js')
+      loadScript('https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.10.1/lottie.min.js'),
+      loadBalloonAnimationData().then(data => { lottieBalloonsData = data; })
     ]);
 
     confettiLib = window.confetti;
@@ -144,8 +146,8 @@ async function showCelebration() {
 
   if (!prefersReducedMotion) {
     launchConfetti();
-    loadLottieAnimation();
-    createBalloons();
+    await loadLottieBalloonAnimation();
+    createLottieBalloons();
   }
 
   createCakeAnimation();
@@ -211,6 +213,16 @@ function launchConfettiSingle() {
     zIndex: 999,
     scalar: 1
   });
+}
+
+async function loadBalloonAnimationData() {
+  try {
+    const response = await fetch('/assets/redBallon.json');
+    return await response.json();
+  } catch (error) {
+    console.error('Error loading balloon animation:', error);
+    return null;
+  }
 }
 
 function loadLottieAnimation() {
@@ -297,6 +309,69 @@ function loadLottieAnimation() {
     });
   } catch (error) {
     console.error('Error loading Lottie animation:', error);
+  }
+}
+
+let lottieBalloonsData = null;
+let lottieBalloonAnimations = [];
+
+async function loadLottieBalloonAnimation() {
+  if (!lottieLib) return;
+
+  if (!lottieBalloonsData) {
+    lottieBalloonsData = await loadBalloonAnimationData();
+  }
+
+  if (!lottieBalloonsData) return;
+
+  const container = document.getElementById('lottie-balloons-container');
+  if (!container) return;
+
+  try {
+    const animation = lottieLib.loadAnimation({
+      container: container,
+      renderer: 'svg',
+      loop: true,
+      autoplay: true,
+      animationData: lottieBalloonsData
+    });
+    lottieBalloonAnimations.push(animation);
+  } catch (error) {
+    console.error('Error loading balloon animation:', error);
+  }
+}
+
+function createLottieBalloons() {
+  const container = document.getElementById('lottie-balloons-floating');
+  if (!container || !lottieLib || !lottieBalloonsData) return;
+
+  const balloonCount = window.innerWidth < 768 ? 5 : 8;
+  container.innerHTML = '';
+
+  for (let i = 0; i < balloonCount; i++) {
+    const balloonWrapper = document.createElement('div');
+    balloonWrapper.className = 'lottie-balloon-float';
+    balloonWrapper.style.left = `${Math.random() * 90}%`;
+    balloonWrapper.style.animationDelay = `${Math.random() * 5}s`;
+    balloonWrapper.style.animationDuration = `${8 + Math.random() * 4}s`;
+
+    const balloonContainer = document.createElement('div');
+    balloonContainer.className = 'lottie-balloon-item';
+    balloonWrapper.appendChild(balloonContainer);
+    container.appendChild(balloonWrapper);
+
+    try {
+      const animation = lottieLib.loadAnimation({
+        container: balloonContainer,
+        renderer: 'svg',
+        loop: true,
+        autoplay: true,
+        animationData: lottieBalloonsData
+      });
+      lottieBalloonAnimations.push(animation);
+    } catch (error) {
+      console.error('Error creating balloon:', error);
+    }
   }
 }
 
@@ -402,6 +477,28 @@ async function checkIfEventStarted() {
   return false;
 }
 
+async function initBackgroundBalloon() {
+  const container = document.getElementById('lottie-balloons-bg');
+  if (!container || prefersReducedMotion) return;
+
+  try {
+    await loadScript('https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.10.1/lottie.min.js');
+    const balloonData = await loadBalloonAnimationData();
+
+    if (window.lottie && balloonData) {
+      window.lottie.loadAnimation({
+        container: container,
+        renderer: 'svg',
+        loop: true,
+        autoplay: true,
+        animationData: balloonData
+      });
+    }
+  } catch (error) {
+    console.error('Error loading background balloon:', error);
+  }
+}
+
 async function init() {
   const shouldShowCelebration = await checkIfEventStarted();
 
@@ -409,6 +506,7 @@ async function init() {
     showCelebration();
   } else {
     startCountdown();
+    initBackgroundBalloon();
   }
 
   elements.manualCelebrationBtn?.addEventListener('click', showCelebration);
