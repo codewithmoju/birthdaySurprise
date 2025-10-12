@@ -1,7 +1,7 @@
 import { createClient } from '@supabase/supabase-js';
 import { createBalloons, createCakeAnimation, createWishesMessage } from './celebration.js';
 
-const TARGET_TIMESTAMP = '2025-10-12T22:52:00+05:00';
+const TARGET_TIMESTAMP = '2025-10-12T22:54:00+05:00';
 const TARGET_DATE = new Date(TARGET_TIMESTAMP);
 
 console.log('=== Countdown Debug Info ===');
