@@ -1,7 +1,7 @@
 import { createClient } from '@supabase/supabase-js';
 import { createBalloons, createCakeAnimation, createWishesMessage } from './celebration.js';
 
-const TARGET_TIMESTAMP = '2025-10-13T00:00:00+05:00';
+const TARGET_TIMESTAMP = '2025-10-13T12:00:00+05:00';
 const TARGET_DATE = new Date(TARGET_TIMESTAMP);
 
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
