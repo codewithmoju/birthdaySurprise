@@ -56,13 +56,9 @@ function updateCountdown() {
 
   if (diff <= 0) {
     stopCountdown();
-    elements.days.textContent = '00';
-    elements.hours.textContent = '00';
-    elements.minutes.textContent = '00';
-    elements.seconds.textContent = '00';
 
     if (!celebrationShown) {
-      setTimeout(() => showCelebration(), 500);
+      showCelebration();
     }
     return;
   }
@@ -137,14 +133,14 @@ async function showCelebration() {
   if (celebrationShown) return;
   celebrationShown = true;
 
-  await saveCelebrationState();
+  elements.countdownContainer.classList.add('hidden');
+  elements.celebrationContainer.classList.remove('hidden');
+
+  saveCelebrationState();
 
   if (!libsLoaded) {
     await loadExternalLibraries();
   }
-
-  elements.countdownContainer.classList.add('hidden');
-  elements.celebrationContainer.classList.remove('hidden');
 
   if (!prefersReducedMotion) {
     launchConfetti();
