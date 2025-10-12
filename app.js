@@ -537,7 +537,31 @@ async function initBackgroundBalloon() {
   }
 }
 
+function setRandomNicknames() {
+  const nicknames = [
+    'my churail',
+    'my cutie pie',
+    'my jan',
+    'my little baby',
+    'my little princess'
+  ];
+
+  const randomNickname = nicknames[Math.floor(Math.random() * nicknames.length)];
+  const randomNicknameElement = document.getElementById('random-nickname');
+  if (randomNicknameElement) {
+    randomNicknameElement.textContent = randomNickname;
+  }
+
+  const celebrationNickname = nicknames[Math.floor(Math.random() * nicknames.length)];
+  const celebrationNicknameElement = document.getElementById('celebration-nickname');
+  if (celebrationNicknameElement) {
+    celebrationNicknameElement.textContent = celebrationNickname;
+  }
+}
+
 async function init() {
+  setRandomNicknames();
+
   const shouldShowCelebration = await checkIfEventStarted();
 
   if (shouldShowCelebration) {

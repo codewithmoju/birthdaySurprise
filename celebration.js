@@ -117,12 +117,22 @@ export function createWishesMessage() {
   const container = document.getElementById('cake-container');
   if (!container) return;
 
+  const nicknames = [
+    'my churail',
+    'my cutie pie',
+    'my jan',
+    'my little baby',
+    'my little princess'
+  ];
+
+  const randomNickname = nicknames[Math.floor(Math.random() * nicknames.length)];
+
   const messageHTML = `
     <div class="wishes-message">
-      <h2>A Toast to Your Twenties</h2>
+      <h2>A Toast to Your Twenties, <span class="nickname-highlight">${randomNickname}</span></h2>
       <p>Today marks the beginning of an extraordinary chapter. May your <span class="highlight">20th year</span> be filled with profound <span class="highlight">growth</span>, authentic <span class="highlight">connections</span>, and moments that take your breath away.</p>
       <p>This is your time to <span class="highlight">dream boldly</span>, <span class="highlight">live fully</span>, and create a life that reflects the beautiful person you've become.</p>
-      <p>Here's to the adventures ahead, the lessons you'll embrace, and the incredible woman you continue to be. Your twenties are calling.</p>
+      <p>Here's to the adventures ahead, the lessons you'll embrace, and the incredible woman you continue to be. Your twenties are calling, <span class="nickname-highlight">${nicknames[Math.floor(Math.random() * nicknames.length)]}</span>.</p>
       <p style="font-size: 1.8rem; margin-top: 1.5rem; opacity: 0.7;">✨ 🌟 💫 🎊</p>
     </div>
   `;

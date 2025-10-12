@@ -5,6 +5,8 @@ A beautiful, production-ready surprise birthday webpage featuring a timezone-awa
 ## ✨ Features
 
 - **Timezone-Aware Countdown**: Counts down to October 12, 2025 11:59 PM (PKT/Asia/Karachi, UTC+05:00)
+- **Personalized Nicknames**: Sweet nicknames displayed randomly throughout the experience ('my churail', 'my cutie pie', 'my jan', 'my little baby', 'my little princess')
+- **Enhanced Visual Design**: Premium animations with shimmer effects, gradient text, and interactive hover states
 - **Automatic Celebration Mode**: Seamlessly transitions to celebration when countdown reaches zero
 - **Interactive Confetti**: Canvas-based confetti animations with click-to-burst interactions
 - **Animated Overlays**: Lottie-powered floating hearts and balloons
@@ -13,6 +15,7 @@ A beautiful, production-ready surprise birthday webpage featuring a timezone-awa
 - **Fully Responsive**: Mobile-first design with breakpoints at 375px, 768px, and 1024px
 - **Accessibility**: WCAG-compliant with ARIA labels, keyboard navigation, and reduced motion support
 - **Performance Optimized**: Lazy-loaded libraries, optimized for mobile devices
+- **Creative Enhancements**: Rotating badge effects, floating animations, heartbeat effects, and more
 
 ## 🚀 Quick Start
 
