@@ -96,17 +96,17 @@ export function createCakeAnimation() {
         <rect x="140" y="139" width="8" height="6" rx="1" fill="#654321"/>
       </g>
 
-      <!-- Decorations -->
-      <circle cx="70" cy="160" r="3" fill="#FF69B4"/>
-      <circle cx="85" cy="165" r="3" fill="#87CEEB"/>
-      <circle cx="100" cy="162" r="3" fill="#FFD700"/>
-      <circle cx="115" cy="165" r="3" fill="#98FB98"/>
-      <circle cx="130" cy="160" r="3" fill="#DDA0DD"/>
+      <!-- Decorations - Rose Gold Theme -->
+      <circle cx="70" cy="160" r="3" fill="#b76e79"/>
+      <circle cx="85" cy="165" r="3" fill="#d4a5a5"/>
+      <circle cx="100" cy="162" r="3" fill="#c9a961"/>
+      <circle cx="115" cy="165" r="3" fill="#e8b4b8"/>
+      <circle cx="130" cy="160" r="3" fill="#9d5c63"/>
 
-      <circle cx="80" cy="120" r="2.5" fill="#FF1493"/>
-      <circle cx="95" cy="123" r="2.5" fill="#00CED1"/>
-      <circle cx="110" cy="120" r="2.5" fill="#FFD700"/>
-      <circle cx="120" cy="123" r="2.5" fill="#7FFF00"/>
+      <circle cx="80" cy="120" r="2.5" fill="#b76e79"/>
+      <circle cx="95" cy="123" r="2.5" fill="#c9a961"/>
+      <circle cx="110" cy="120" r="2.5" fill="#d4a5a5"/>
+      <circle cx="120" cy="123" r="2.5" fill="#e8b4b8"/>
     </svg>
   `;
 
@@ -119,11 +119,11 @@ export function createWishesMessage() {
 
   const messageHTML = `
     <div class="wishes-message">
-      <h2>Great Wishes for You! 🎉</h2>
-      <p>May your birthday be filled with <span class="highlight">endless joy</span>, <span class="highlight">wonderful surprises</span>, and <span class="highlight">beautiful memories</span>!</p>
-      <p>Wishing you a year ahead full of <span class="highlight">success</span>, <span class="highlight">happiness</span>, and <span class="highlight">amazing adventures</span>!</p>
-      <p>Here's to celebrating <span class="highlight">you</span> and all the incredible things that make you special!</p>
-      <p style="font-size: 2rem; margin-top: 1rem;">🎂🎈🎁💝✨</p>
+      <h2>A Toast to Your Twenties</h2>
+      <p>Today marks the beginning of an extraordinary chapter. May your <span class="highlight">20th year</span> be filled with profound <span class="highlight">growth</span>, authentic <span class="highlight">connections</span>, and moments that take your breath away.</p>
+      <p>This is your time to <span class="highlight">dream boldly</span>, <span class="highlight">live fully</span>, and create a life that reflects the beautiful person you've become.</p>
+      <p>Here's to the adventures ahead, the lessons you'll embrace, and the incredible woman you continue to be. Your twenties are calling.</p>
+      <p style="font-size: 1.8rem; margin-top: 1.5rem; opacity: 0.7;">✨ 🌟 💫 🎊</p>
     </div>
   `;
 
