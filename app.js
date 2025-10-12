@@ -1,4 +1,5 @@
 import { createClient } from '@supabase/supabase-js';
+import { createBalloons, createCakeAnimation, createWishesMessage } from './celebration.js';
 
 const TARGET_TIMESTAMP = '2025-10-12T21:00:00+05:00';
 const TARGET_DATE = new Date(TARGET_TIMESTAMP);
@@ -20,10 +21,8 @@ const elements = {
   playSongBtn: document.getElementById('play-song-btn'),
   stopSongBtn: document.getElementById('stop-song-btn'),
   birthdayAudio: document.getElementById('birthday-audio'),
-  wishForm: document.getElementById('wish-form'),
-  wishInput: document.getElementById('wish-input'),
-  charCount: document.getElementById('char-count'),
-  wishesGrid: document.getElementById('wishes-grid'),
+  balloonsContainer: document.getElementById('balloons-container'),
+  cakeContainer: document.getElementById('cake-container'),
   confettiCanvas: document.getElementById('confetti-canvas'),
   lottieContainer: document.getElementById('lottie-container'),
   herNameCelebration: document.getElementById('her-name-celebration')
@@ -138,6 +137,8 @@ async function showCelebration() {
   if (celebrationShown) return;
   celebrationShown = true;
 
+  await saveCelebrationState();
+
   if (!libsLoaded) {
     await loadExternalLibraries();
   }
@@ -148,12 +149,14 @@ async function showCelebration() {
   if (!prefersReducedMotion) {
     launchConfetti();
     loadLottieAnimation();
+    createBalloons();
   }
 
-  loadWishes();
+  createCakeAnimation();
+  createWishesMessage();
 
   elements.celebrationContainer.addEventListener('click', (e) => {
-    if (!prefersReducedMotion && confettiLib && !e.target.closest('button, textarea, input, a')) {
+    if (!prefersReducedMotion && confettiLib && !e.target.closest('button, a')) {
       launchConfettiSingle();
     }
   });
@@ -301,61 +304,32 @@ function loadLottieAnimation() {
   }
 }
 
-async function loadWishes() {
-  try {
-    const { data, error } = await supabase
-      .from('wishes')
-      .select('id, message, created_at')
-      .order('created_at', { ascending: false });
-
-    if (error) throw error;
-
-    if (data && data.length > 0) {
-      data.forEach((wish) => {
-        displayWish(wish.message, false);
-      });
-    }
-  } catch (error) {
-    console.error('Error loading wishes:', error);
-  }
-}
-
-async function submitWish(message) {
+async function saveCelebrationState() {
   try {
     const { error } = await supabase
-      .from('wishes')
-      .insert([{ message: message }]);
+      .from('celebration_state')
+      .upsert([{ id: 1, celebration_triggered: true, triggered_at: new Date().toISOString() }]);
 
     if (error) throw error;
-
-    displayWish(message, true);
-    elements.wishInput.value = '';
-    elements.charCount.textContent = '0';
   } catch (error) {
-    console.error('Error submitting wish:', error);
-    alert('Failed to submit wish. Please try again.');
+    console.error('Error saving celebration state:', error);
   }
 }
 
-function displayWish(message, animate = true) {
-  const wishCard = document.createElement('div');
-  wishCard.className = 'wish-card';
-  wishCard.setAttribute('role', 'listitem');
+async function checkCelebrationState() {
+  try {
+    const { data, error } = await supabase
+      .from('celebration_state')
+      .select('celebration_triggered')
+      .eq('id', 1)
+      .maybeSingle();
 
-  if (!animate) {
-    wishCard.style.animation = 'none';
-  }
+    if (error) throw error;
 
-  const p = document.createElement('p');
-  p.innerHTML = sanitizeHTML(message);
-  wishCard.appendChild(p);
-
-  elements.wishesGrid.insertBefore(wishCard, elements.wishesGrid.firstChild);
-
-  if (animate) {
-    setTimeout(() => {
-      wishCard.style.animation = '';
-    }, 10);
+    return data?.celebration_triggered || false;
+  } catch (error) {
+    console.error('Error checking celebration state:', error);
+    return false;
   }
 }
 
@@ -419,9 +393,12 @@ function stopSong() {
   elements.stopSongBtn.classList.add('hidden');
 }
 
-function checkIfEventStarted() {
+async function checkIfEventStarted() {
   const now = new Date();
-  if (now >= TARGET_DATE) {
+  const isPastTargetDate = now >= TARGET_DATE;
+  const celebrationWasTriggered = await checkCelebrationState();
+
+  if (isPastTargetDate || celebrationWasTriggered) {
     stopCountdown();
     elements.manualCelebrationBtn.classList.remove('hidden');
     return true;
@@ -429,8 +406,12 @@ function checkIfEventStarted() {
   return false;
 }
 
-function init() {
-  if (!checkIfEventStarted()) {
+async function init() {
+  const shouldShowCelebration = await checkIfEventStarted();
+
+  if (shouldShowCelebration) {
+    showCelebration();
+  } else {
     startCountdown();
   }
 
@@ -439,20 +420,6 @@ function init() {
   elements.shareBtn?.addEventListener('click', shareContent);
   elements.playSongBtn?.addEventListener('click', playSong);
   elements.stopSongBtn?.addEventListener('click', stopSong);
-
-  elements.wishInput?.addEventListener('input', (e) => {
-    const length = e.target.value.length;
-    elements.charCount.textContent = String(length);
-  });
-
-  elements.wishForm?.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const message = elements.wishInput.value.trim();
-
-    if (message && message.length <= 200) {
-      submitWish(message);
-    }
-  });
 
   if (elements.birthdayAudio) {
     elements.birthdayAudio.addEventListener('ended', () => {
