@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A surprise birthday celebration countdown">
+  <title>Happy Birthday Surprise! 🎉</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <noscript>
+    <div class="noscript-fallback">
+      <h1>🎉 Happy Birthday! 🎉</h1>
+      <p>JavaScript is required to view the interactive countdown and celebration.</p>
+      <p>Please enable JavaScript in your browser to experience the full surprise!</p>
+    </div>
+  </noscript>
+
+  <div id="app">
+    <!-- Countdown State -->
+    <div id="countdown-container" class="container" aria-live="polite">
+      <div class="hero-section">
+        <h1 class="hero-title">
+          Happy Birthday, <span class="name-highlight" id="her-name">KASHAF</span>! 🎉
+        </h1>
+        <p class="hero-subtitle">
+          A surprise from <span class="name-highlight" id="his-name">MOAIZ</span>
+        </p>
+      </div>
+
+      <div class="countdown-wrapper">
+
+        <div class="countdown-grid" role="timer" aria-label="Birthday countdown timer">
+          <div class="countdown-item">
+            <div class="countdown-value" id="days">00</div>
+            <div class="countdown-label">Days</div>
+          </div>
+          <div class="countdown-item">
+            <div class="countdown-value" id="hours">00</div>
+            <div class="countdown-label">Hours</div>
+          </div>
+          <div class="countdown-item">
+            <div class="countdown-value" id="minutes">00</div>
+            <div class="countdown-label">Minutes</div>
+          </div>
+          <div class="countdown-item">
+            <div class="countdown-value" id="seconds">00</div>
+            <div class="countdown-label">Seconds</div>
+          </div>
+        </div>
+
+        <button id="manual-celebration-btn" class="celebration-trigger-btn hidden" aria-label="Show celebration">
+          🎊 Show Celebration 🎊
+        </button>
+      </div>
+
+      <div class="floating-controls" role="toolbar" aria-label="Page controls">
+        <button id="mute-btn" class="control-btn" aria-label="Mute audio" title="Mute">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+            <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+          </svg>
+        </button>
+        <button id="share-btn" class="control-btn" aria-label="Share page" title="Share">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="18" cy="5" r="3"></circle>
+            <circle cx="6" cy="12" r="3"></circle>
+            <circle cx="18" cy="19" r="3"></circle>
+            <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+            <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Celebration State -->
+    <div id="celebration-container" class="celebration-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="celebration-title">
+      <canvas id="confetti-canvas" class="confetti-canvas" aria-hidden="true"></canvas>
+
+      <div id="lottie-container" class="lottie-container" aria-hidden="true"></div>
+
+      <div class="celebration-content">
+        <h1 id="celebration-title" class="celebration-hero animate-in">
+          Surprise! Happy Birthday, <span class="name-highlight" id="her-name-celebration">Sarah</span>! ❤️
+        </h1>
+        <p class="celebration-subtitle animate-in-delay">
+          Wishing you a day filled with love, joy, and endless smiles!
+        </p>
+
+        <div class="music-controls animate-in-delay-2">
+          <button id="play-song-btn" class="play-btn" aria-label="Play birthday song">
+            🎵 Play Birthday Song
+          </button>
+          <button id="stop-song-btn" class="stop-btn hidden" aria-label="Stop birthday song">
+            ⏸ Stop Song
+          </button>
+        </div>
+
+        <div class="wish-section animate-in-delay-3">
+          <h2 class="wish-title">Leave a Birthday Wish 💌</h2>
+          <form id="wish-form" class="wish-form">
+            <textarea
+              id="wish-input"
+              class="wish-input"
+              placeholder="Write your birthday wish here..."
+              maxlength="200"
+              rows="3"
+              aria-label="Birthday wish message"
+              required
+            ></textarea>
+            <div class="wish-form-footer">
+              <span class="char-count" aria-live="polite">
+                <span id="char-count">0</span>/200
+              </span>
+              <button type="submit" class="wish-submit-btn" aria-label="Submit wish">
+                Send Wish ✨
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <div id="wishes-grid" class="wishes-grid" role="list" aria-label="Birthday wishes">
+          <!-- Wishes will be inserted here -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <audio id="birthday-audio" preload="none" aria-label="Birthday music">
+    <source src="/assets/birthday-song.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+
+  <script type="module" src="/app.js"></script>
+</body>
+</html>

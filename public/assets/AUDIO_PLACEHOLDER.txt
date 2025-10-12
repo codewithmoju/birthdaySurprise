@@ -1,0 +1,30 @@
+AUDIO FILE NEEDED
+=================
+
+Place your birthday song here as: birthday-song.mp3
+
+Requirements:
+- Format: MP3
+- Duration: 2-3 minutes recommended
+- Bitrate: 128-192kbps (optimized for web)
+- Suggested: Happy Birthday instrumental or celebratory music
+
+Where to find royalty-free music:
+- YouTube Audio Library
+- Free Music Archive
+- Incompetech
+- Bensound
+
+Or use a personal recording/purchase.
+
+The audio will:
+- Only play when user clicks "Play Birthday Song" button
+- Never autoplay
+- Be muted if user clicks mute button
+- Stop and reset when user clicks stop button
+
+If no audio file is provided:
+- The play button will still appear
+- Browser will show a playback error
+- User will see an alert: "Unable to play audio"
+- Rest of the page will work normally

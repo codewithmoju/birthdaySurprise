@@ -1,0 +1,55 @@
+{
+  "name": "Birthday Surprise Assets Manifest",
+  "description": "List of required assets for the birthday surprise webpage",
+  "version": "1.0.0",
+  "assets": [
+    {
+      "type": "audio",
+      "filename": "birthday-song.mp3",
+      "path": "/assets/birthday-song.mp3",
+      "description": "Birthday celebration music (user-triggered)",
+      "required": false,
+      "notes": "Optional audio file. Should be a birthday song (e.g., Happy Birthday instrumental). Recommended format: MP3, max 5MB. If not provided, the play button will show an error."
+    }
+  ],
+  "external_libraries": [
+    {
+      "name": "canvas-confetti",
+      "version": "1.6.0",
+      "url": "https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js",
+      "purpose": "Confetti animation effects",
+      "load_strategy": "lazy (within 30s of target or on celebration trigger)"
+    },
+    {
+      "name": "lottie-web",
+      "version": "5.10.1",
+      "url": "https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.10.1/lottie.min.js",
+      "purpose": "Animated hearts/balloons overlay",
+      "load_strategy": "lazy (within 30s of target or on celebration trigger)"
+    }
+  ],
+  "fonts": [
+    {
+      "name": "Poppins",
+      "weights": [400, 600, 700, 900],
+      "source": "Google Fonts",
+      "url": "https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&display=swap"
+    },
+    {
+      "name": "Inter",
+      "weights": [300, 400, 500, 600],
+      "source": "Google Fonts",
+      "url": "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap"
+    }
+  ],
+  "placeholder_instructions": {
+    "audio": {
+      "birthday-song.mp3": "Place your birthday song MP3 file in /public/assets/ directory. Recommended: Happy Birthday instrumental, 2-3 minutes, optimized for web (128-192kbps)."
+    }
+  },
+  "optional_enhancements": [
+    "Add favicon.ico or favicon.svg to /public/",
+    "Add og:image meta tags with a birthday celebration image for social sharing",
+    "Optimize audio file with tools like Audacity or ffmpeg for web delivery"
+  ]
+}
