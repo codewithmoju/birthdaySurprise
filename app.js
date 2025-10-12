@@ -16,7 +16,14 @@ console.log('========================');
 
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
-const supabase = createClient(supabaseUrl, supabaseAnonKey);
+
+if (!supabaseUrl || !supabaseAnonKey) {
+  console.error('Supabase environment variables not found!');
+  console.error('VITE_SUPABASE_URL:', supabaseUrl);
+  console.error('VITE_SUPABASE_ANON_KEY:', supabaseAnonKey ? 'exists' : 'missing');
+}
+
+const supabase = supabaseUrl && supabaseAnonKey ? createClient(supabaseUrl, supabaseAnonKey) : null;
 
 const elements = {
   countdownContainer: document.getElementById('countdown-container'),
@@ -391,6 +398,10 @@ function createLottieBalloons() {
 }
 
 async function saveCelebrationState() {
+  if (!supabase) {
+    console.log('Supabase not initialized, skipping state save');
+    return;
+  }
   try {
     const { error } = await supabase
       .from('celebration_state')
@@ -403,6 +414,10 @@ async function saveCelebrationState() {
 }
 
 async function checkCelebrationState() {
+  if (!supabase) {
+    console.log('Supabase not initialized, skipping state check');
+    return false;
+  }
   try {
     const { data, error } = await supabase
       .from('celebration_state')
