@@ -129,3 +129,99 @@ export function createWishesMessage() {
 
   container.insertAdjacentHTML('afterend', messageHTML);
 }
+
+export function createFloatingElements() {
+  const container = document.getElementById('floating-elements');
+  if (!container) return;
+
+  const emojis = ['🎁', '🎈', '🎂', '🎉', '🎊', '🌟', '✨', '💖', '🦋', '🌸', '🎵', '💫', '🌺', '🎀', '🌈'];
+  const count = window.innerWidth < 768 ? 15 : 25;
+
+  for (let i = 0; i < count; i++) {
+    const element = document.createElement('div');
+    element.className = 'floating-emoji';
+    element.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+    element.style.left = `${Math.random() * 100}%`;
+    element.style.animationDelay = `${Math.random() * 8}s`;
+    element.style.animationDuration = `${15 + Math.random() * 10}s`;
+    element.style.fontSize = `${20 + Math.random() * 20}px`;
+    container.appendChild(element);
+  }
+}
+
+export function createSparkles() {
+  const container = document.getElementById('sparkles-container');
+  if (!container) return;
+
+  const count = window.innerWidth < 768 ? 30 : 50;
+
+  for (let i = 0; i < count; i++) {
+    const sparkle = document.createElement('div');
+    sparkle.className = 'sparkle';
+    sparkle.style.left = `${Math.random() * 100}%`;
+    sparkle.style.top = `${Math.random() * 100}%`;
+    sparkle.style.animationDelay = `${Math.random() * 3}s`;
+    sparkle.style.animationDuration = `${2 + Math.random() * 2}s`;
+    container.appendChild(sparkle);
+  }
+}
+
+export function createHeartBurst() {
+  const container = document.getElementById('heart-burst');
+  if (!container) return;
+
+  const colors = ['#ff6b9d', '#c44569', '#f8b500', '#ff9ff3', '#feca57'];
+  const count = window.innerWidth < 768 ? 15 : 25;
+
+  for (let i = 0; i < count; i++) {
+    const heart = document.createElement('div');
+    heart.className = 'heart-particle';
+    heart.innerHTML = '❤️';
+    heart.style.setProperty('--angle', `${(360 / count) * i}deg`);
+    heart.style.setProperty('--color', colors[Math.floor(Math.random() * colors.length)]);
+    heart.style.animationDelay = `${Math.random() * 2}s`;
+    container.appendChild(heart);
+  }
+}
+
+export function createFireworks() {
+  const container = document.getElementById('fireworks-container');
+  if (!container) return;
+
+  function launchFirework() {
+    const firework = document.createElement('div');
+    firework.className = 'firework';
+    firework.style.left = `${20 + Math.random() * 60}%`;
+    firework.style.top = `${20 + Math.random() * 60}%`;
+
+    const colors = ['#ff6b9d', '#c44569', '#f8b500', '#48dbfb', '#ff9ff3', '#feca57'];
+    const color = colors[Math.floor(Math.random() * colors.length)];
+
+    for (let i = 0; i < 12; i++) {
+      const particle = document.createElement('div');
+      particle.className = 'firework-particle';
+      particle.style.setProperty('--angle', `${(360 / 12) * i}deg`);
+      particle.style.backgroundColor = color;
+      firework.appendChild(particle);
+    }
+
+    container.appendChild(firework);
+
+    setTimeout(() => firework.remove(), 2000);
+  }
+
+  launchFirework();
+  setInterval(launchFirework, 3000);
+}
+
+export function createRibbon() {
+  const container = document.getElementById('ribbon-container');
+  if (!container) return;
+
+  const ribbonHTML = `
+    <div class="ribbon-left"></div>
+    <div class="ribbon-right"></div>
+  `;
+
+  container.innerHTML = ribbonHTML;
+}

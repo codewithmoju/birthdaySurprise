@@ -1,5 +1,5 @@
 import { createClient } from '@supabase/supabase-js';
-import { createBalloons, createCakeAnimation, createWishesMessage } from './celebration.js';
+import { createBalloons, createCakeAnimation, createWishesMessage, createFloatingElements, createSparkles, createHeartBurst, createFireworks, createRibbon } from './celebration.js';
 
 const TARGET_TIMESTAMP = '2025-10-12T23:11:00+05:00';
 const TARGET_DATE = new Date(TARGET_TIMESTAMP);
@@ -174,6 +174,14 @@ async function showCelebration() {
 
   createCakeAnimation();
   createWishesMessage();
+
+  if (!prefersReducedMotion) {
+    createFloatingElements();
+    createSparkles();
+    createHeartBurst();
+    createFireworks();
+    createRibbon();
+  }
 
   elements.celebrationContainer.addEventListener('click', (e) => {
     if (!prefersReducedMotion && confettiLib && !e.target.closest('button, a')) {
