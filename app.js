@@ -505,9 +505,8 @@ function stopSong() {
 async function checkIfEventStarted() {
   const now = new Date();
   const isPastTargetDate = now >= TARGET_DATE;
-  const celebrationWasTriggered = await checkCelebrationState();
 
-  if (isPastTargetDate || celebrationWasTriggered) {
+  if (isPastTargetDate) {
     stopCountdown();
     elements.manualCelebrationBtn.classList.remove('hidden');
     return true;
@@ -562,14 +561,9 @@ function setRandomNicknames() {
 async function init() {
   setRandomNicknames();
 
-  const shouldShowCelebration = await checkIfEventStarted();
-
-  if (shouldShowCelebration) {
-    showCelebration();
-  } else {
-    startCountdown();
-    initBackgroundBalloon();
-  }
+  await checkIfEventStarted();
+  startCountdown();
+  initBackgroundBalloon();
 
   elements.manualCelebrationBtn?.addEventListener('click', showCelebration);
   elements.muteBtn?.addEventListener('click', toggleMute);
