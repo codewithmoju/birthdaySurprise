@@ -463,7 +463,7 @@ function shareContent() {
   if (navigator.share) {
     navigator.share({
       title: 'Happy Birthday Surprise!',
-      text: 'Check out this special birthday surprise page!',
+      text: 'A special birthday surprise from your brother!',
       url: window.location.href
     }).catch((err) => {
       console.log('Share failed:', err);
@@ -538,24 +538,24 @@ async function initBackgroundBalloon() {
 }
 
 function setRandomNicknames() {
-  const nicknames = [
-    'my churail',
-    'my cutie pie',
-    'my jan',
-    'my little baby',
-    'my little princess'
+  const siblingTerms = [
+    'My Dear Sister',
+    'My Amazing Sister',
+    'My Wonderful Sister',
+    'My Beloved Sister',
+    'My Sweet Sister'
   ];
 
-  const randomNickname = nicknames[Math.floor(Math.random() * nicknames.length)];
+  const randomTerm = siblingTerms[Math.floor(Math.random() * siblingTerms.length)];
   const randomNicknameElement = document.getElementById('random-nickname');
   if (randomNicknameElement) {
-    randomNicknameElement.textContent = randomNickname;
+    randomNicknameElement.textContent = randomTerm;
   }
 
-  const celebrationNickname = nicknames[Math.floor(Math.random() * nicknames.length)];
+  const celebrationTerm = siblingTerms[Math.floor(Math.random() * siblingTerms.length)];
   const celebrationNicknameElement = document.getElementById('celebration-nickname');
   if (celebrationNicknameElement) {
-    celebrationNicknameElement.textContent = celebrationNickname;
+    celebrationNicknameElement.textContent = celebrationTerm;
   }
 }
 
