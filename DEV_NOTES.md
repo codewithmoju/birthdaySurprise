@@ -83,7 +83,7 @@ const particleCount = isMobile ? 100 : 200;
 **Future Enhancement**: Could add config.js if needed:
 ```javascript
 export const CONFIG = {
-  herName: 'KASHAF',
+  herName: 'NAYAB AMIN',
   hisName: 'MOAIZ'
 };
 ```
